@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property mixed|string $name
- * @property mixed|string $slug
- * @method static Tag find(int $id)
+ * @method static Category find(int $id)
  */
-class Tag extends Model
+class Category extends Model
 {
     use HasFactory;
 
