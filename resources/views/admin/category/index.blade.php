@@ -34,7 +34,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    {{--                                    <th>Post Count</th>--}}
+                                    <th>Post Count</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th>Action</th>
@@ -44,7 +44,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    {{--                                    <th>Post Count</th>--}}
+                                    <th>Post Count</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th>Action</th>
@@ -55,7 +55,7 @@
                                     <tr>
                                         <td>{{ $category + 1 }}</td>
                                         <td>{{ $category->name }}</td>
-                                        {{--                                        <td>{{ $tag->posts->count() }}</td>--}}
+                                        <td>{{ $category->posts->count() }}</td>
                                         <td>{{ $category->created_at }}</td>
                                         <td>{{ $category->updated_at }}</td>
                                         <td class="text-center">
@@ -68,7 +68,8 @@
                                                 <i class="material-icons">delete</i>
                                             </button>
                                             <form id="delete-form-{{ $category->id }}"
-                                                  action="{{ route('admin.category.destroy',$category->id) }}" method="POST"
+                                                  action="{{ route('admin.category.destroy',$category->id) }}"
+                                                  method="POST"
                                                   style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
