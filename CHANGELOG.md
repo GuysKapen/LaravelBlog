@@ -54,7 +54,7 @@
 ## [v8.5.23 (2021-08-03)](https://github.com/laravel/laravel/compare/v8.5.22...v8.5.23)
 
 ### Changed
-- Unified asset publishing ([#5654](https://github.com/laravel/laravel/pull/5654))
+- Unified asset publicing ([#5654](https://github.com/laravel/laravel/pull/5654))
 
 
 ## [v8.5.22 (2021-07-13)](https://github.com/laravel/laravel/compare/v8.5.21...v8.5.22)

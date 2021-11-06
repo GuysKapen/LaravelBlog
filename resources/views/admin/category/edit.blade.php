@@ -26,6 +26,6 @@
     </div>
 @endsection
 
-@push('script')
+@push('js')
 
 @endpush

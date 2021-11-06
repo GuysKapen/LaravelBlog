@@ -53,7 +53,7 @@
                                 <tbody>
                                 @foreach($categories as $key=>$category)
                                     <tr>
-                                        <td>{{ $category + 1 }}</td>
+                                        <td>{{ $category->id}}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->posts->count() }}</td>
                                         <td>{{ $category->created_at }}</td>

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static Category find(int $id)
+ * @property mixed|string $name
+ * @property mixed|string $slug
+ * @property mixed|string $image
  */
 class Category extends Model
 {

@@ -47,7 +47,7 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:categories',
-            'image' => 'required|mines:jpg,jpeg,png,bmp'
+            'image' => 'required|mimes:jpg,jpeg,png,bmp'
         ]);
 
         $image = $request->file('image');
@@ -57,20 +57,11 @@ class CategoryController extends Controller
             $imageName = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
 
             // Image for category
-            if (!Storage::disk('publish')->exists('category')) {
-                Storage::disk('publish')->makeDirectory('category');
+            if (!Storage::disk('public')->exists('category')) {
+                Storage::disk('public')->makeDirectory('category');
             }
 
-//            $category = Image::make($image)->resize(1600, 479)->save();
-            Storage::disk('publish')->put('category/' . $imageName, $image);
-
-//            // Image for slider
-//            if (!Storage::disk('publish')->exists('category')) {
-//                Storage::disk('publish')->makeDirectory('category/slider');
-//            }
-//
-//            $slider = Image::make($image)->resize(500, 333)->save();
-//            Storage::disk('publish')->put('category/slider' . $imageName, $slider);
+            Storage::disk('public')->put('category/' . $imageName, $image);
         } else {
             $imageName = 'default.png';
         }
@@ -82,11 +73,10 @@ class CategoryController extends Controller
 
         if ($category->save()) {
             Toastr::success('Save category successfully', 'Succeed');
-            return redirect()->back();
+            return redirect()->route('admin.category.index');
         }
         Toastr::warning('Failed to save category', 'Failed');
-        return redirect()->route('admin.category.index');
-
+        return redirect()->back();
     }
 
     /**
@@ -121,11 +111,43 @@ class CategoryController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|unique:categories',
+            'image' => 'required|mines:jpg,jpeg,png,bmp'
+        ]);
+
+        $category = Category::find($id);
+
+        $image = $request->file('image');
+        $slug = Str::slug($request->name);
+        if (isset($image)) {
+            $currentDate = Carbon::now()->toDateString();
+            $imageName = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+            // Image for category
+            if (!Storage::disk('public')->exists('category')) {
+                Storage::disk('public')->makeDirectory('category');
+            }
+
+            Storage::disk('public')->put('category/' . $imageName, $image);
+        } else {
+            $imageName = 'default.png';
+        }
+
+        $category->name = $request->name;
+        $category->slug = $slug;
+        $category->image = $imageName;
+
+        if ($category->save()) {
+            Toastr::success('Update category successfully', 'Succeed');
+            return redirect()->route('admin.category.index');
+        }
+        Toastr::error('Failed to update category', 'Failed');
+        return redirect()->back();
     }
 
     /**
