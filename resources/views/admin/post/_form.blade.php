@@ -1,5 +1,5 @@
 <form
-    action="{{ !isset($category) ? route('admin.post.store') :  route('admin.post.update',  $category->id ) }}"
+    action="{{ !isset($post) ? route('admin.post.store') :  route('admin.post.update',  $post->id ) }}"
     method="{{ "POST" }}"
     enctype="multipart/form-data">
 @isset($post->id)

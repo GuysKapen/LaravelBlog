@@ -64,7 +64,7 @@ class PostController extends Controller
                 Storage::disk("public")->makeDirectory("post");
             }
 
-            Storage::disk("public")->put("post/" . $imageName, $image);
+            Storage::disk("public")->put("post/" . $imageName, file_get_contents($image));
         } else {
             $imageName = "default.png";
         }
@@ -92,11 +92,11 @@ class PostController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show(Post $post)
     {
-        //
+        return view('admin.post.show', compact('post'));
     }
 
     /**
@@ -143,7 +143,7 @@ class PostController extends Controller
                 Storage::disk("public")->delete("post/" . $post->image);
             }
 
-            Storage::disk("public")->put("post/" . $imageName, $image);
+            Storage::disk("public")->put("post/" . $imageName, file_get_contents($image));
         } else {
             $imageName = $post->image;
         }
@@ -170,10 +170,22 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Post $post)
     {
-        //
+        if (Storage::disk("public")->exists("post/" . $post->image)) {
+            Storage::disk("public")->delete("post/" . $post->image);
+        }
+
+        if ($post->delete()) {
+            $post->categories()->detach();
+            $post->tags()->detach();
+            Toastr::success('Delete post successfully', 'Succeed');
+            return redirect()->back();
+        }
+
+        Toastr::error('Failed to delete post', 'Failed');
+        return redirect()->back();
     }
 }
