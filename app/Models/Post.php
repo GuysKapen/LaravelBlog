@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed|boolean $is_approved
  * @property mixed|string $slug
  * @property mixed|integer $view_count
+ * @method static Post find($id)
+ * @method static where(string $string, false $false)
  */
 class Post extends Model
 {

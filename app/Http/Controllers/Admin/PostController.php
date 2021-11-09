@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -42,7 +43,7 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -117,7 +118,7 @@ class PostController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Post $post
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, Post $post)
     {
@@ -170,7 +171,7 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Post $post
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Post $post)
     {
@@ -186,6 +187,28 @@ class PostController extends Controller
         }
 
         Toastr::error('Failed to delete post', 'Failed');
+        return redirect()->back();
+    }
+
+    public function pending()
+    {
+        $posts = Post::where('is_approved', false)->get();
+        return view('admin.post.pending', compact('posts'));
+    }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function approve($id): RedirectResponse
+    {
+        $post = Post::find($id);
+        if ($post->is_approved == false) {
+            $post->is_approved = true;
+            $post->save();
+            Toastr::success('Post approved successfully', 'Succeed');
+        }
+
         return redirect()->back();
     }
 }

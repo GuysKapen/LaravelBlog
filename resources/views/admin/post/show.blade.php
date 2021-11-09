@@ -11,14 +11,16 @@
         <!-- Vertical Layout | With Floating Label -->
         <a href="{{ route('admin.post.index') }}" class="btn btn-danger waves-effect">BACK</a>
         @if($post->is_approved == false)
-            <button type="button" class="btn btn-success waves-effect pull-right" onclick="approvePost({{ $post->id }})">
+            <button type="button" class="btn btn-success waves-effect pull-right"
+                    onclick="approvePost({{ $post->id }})">
                 <i class="material-icons">done</i>
                 <span>Approve</span>
             </button>
-{{--            <form method="post" action="{{ route('admin.post.approve',$post->id) }}" id="approval-form" style="display: none">--}}
-{{--                @csrf--}}
-{{--                @method('PUT')--}}
-{{--            </form>--}}
+            <form method="post" action="{{ route('admin.post.approve',$post->id) }}" id="approval-form"
+                  style="display: none">
+                @csrf
+                @method('PUT')
+            </form>
         @else
             <button type="button" class="btn btn-success pull-right" disabled>
                 <i class="material-icons">done</i>
@@ -33,7 +35,8 @@
                     <div class="header">
                         <h2>
                             {{ $post->title }}
-                            <small>Posted By <strong> <a href="">{{ $post->user->name }}</a></strong> on {{ $post->created_at->toFormattedDateString() }}</small>
+                            <small>Posted By <strong> <a href="">{{ $post->user->name }}</a></strong>
+                                on {{ $post->created_at->toFormattedDateString() }}</small>
                         </h2>
                     </div>
                     <div class="body">
@@ -73,7 +76,8 @@
                         </h2>
                     </div>
                     <div class="body">
-                        <img class="img-responsive thumbnail" src="{{ Storage::disk('public')->url('post/'.$post->image) }}" alt="">
+                        <img class="img-responsive thumbnail"
+                             src="{{ Storage::disk('public')->url('post/'.$post->image) }}" alt="">
                     </div>
                 </div>
 
@@ -108,6 +112,7 @@
             tinymce.suffix = ".min";
             tinyMCE.baseURL = '{{ asset('assets/backend/plugins/tinymce') }}';
         });
+
         function approvePost(id) {
             swal({
                 title: 'Are you sure?',

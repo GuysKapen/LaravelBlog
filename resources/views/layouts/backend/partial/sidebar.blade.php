@@ -64,12 +64,12 @@
                         <span>Posts</span>
                     </a>
                 </li>
-                {{--                <li class="{{ Request::is('admin/pending/post') ? 'active' : '' }}">--}}
-                {{--                    <a href="{{ route('admin.post.pending') }}">--}}
-                {{--                        <i class="material-icons">library_books</i>--}}
-                {{--                        <span>Pending Posts</span>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
+                <li class="{{ Request::is('admin/pending/post') ? 'active' : '' }}">
+                    <a href="{{ route('admin.post.pending') }}">
+                        <i class="material-icons">library_books</i>
+                        <span>Pending Posts</span>
+                    </a>
+                </li>
                 {{--                <li class="{{ Request::is('admin/favorite') ? 'active' : '' }}">--}}
                 {{--                    <a href="{{ route('admin.favorite.index') }}">--}}
                 {{--                        <i class="material-icons">favorite</i>--}}
@@ -128,27 +128,27 @@
                         <span>Posts</span>
                     </a>
                 </li>
-{{--                <li class="{{ Request::is('author/favorite') ? 'active' : '' }}">--}}
-{{--                    <a href="{{ route('author.favorite.index') }}">--}}
-{{--                        <i class="material-icons">favorite</i>--}}
-{{--                        <span>Favorite Posts</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="{{ Request::is('author/favorite') ? 'active' : '' }}">--}}
+                {{--                    <a href="{{ route('author.favorite.index') }}">--}}
+                {{--                        <i class="material-icons">favorite</i>--}}
+                {{--                        <span>Favorite Posts</span>--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
 
-{{--                <li class="{{ Request::is('author/comments') ? 'active' : '' }}">--}}
-{{--                    <a href="{{ route('author.comment.index') }}">--}}
-{{--                        <i class="material-icons">comment</i>--}}
-{{--                        <span>Comments</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="{{ Request::is('author/comments') ? 'active' : '' }}">--}}
+                {{--                    <a href="{{ route('author.comment.index') }}">--}}
+                {{--                        <i class="material-icons">comment</i>--}}
+                {{--                        <span>Comments</span>--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
 
-{{--                <li class="header">System</li>--}}
-{{--                <li class="{{ Request::is('author/settings') ? 'active' : '' }}">--}}
-{{--                    <a href="{{ route('author.settings') }}">--}}
-{{--                        <i class="material-icons">settings</i>--}}
-{{--                        <span>Settings</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="header">System</li>--}}
+                {{--                <li class="{{ Request::is('author/settings') ? 'active' : '' }}">--}}
+                {{--                    <a href="{{ route('author.settings') }}">--}}
+                {{--                        <i class="material-icons">settings</i>--}}
+                {{--                        <span>Settings</span>--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
