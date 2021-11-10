@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post("/subscriber", [SubscriberController::class, 'store'])->name('subscriber.store');
+
+Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('category.posts');
+
+Route::get('/author/profile', function () {
+
+})->name('author.profile');
+
+Route::get('/post/details', function () {
+
+})->name('post.details');
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
@@ -31,6 +41,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
 
     Route::get("pending/post", 'PostController@pending')->name('post.pending');
     Route::put("post/{id}/approve", 'PostController@approve')->name('post.approve');
+
+    Route::get("/subscriber", 'SubscriberController@index')->name('subscriber.index');
+    Route::post("/subscriber/{subscriber}", 'SubscriberController@destroy')->name('subscriber.destroy');
+
 });
 
 Route::group(['as' => 'author.', 'prefix' => 'author', 'namespace' => 'App\Http\Controllers\Author', 'middleware' => ['auth', 'author']], function () {

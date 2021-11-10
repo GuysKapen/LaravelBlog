@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
+use App\Notifications\NewAuthorPost;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
@@ -18,6 +20,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -96,6 +99,10 @@ class PostController extends Controller
             $post->categories()->attach($request->categories);
             $post->tags()->attach($request->tags);
             Toastr::success('Save post successfully', 'Succeed');
+
+            $users = User::where('role_id', 1)->get();
+            Notification::send($users, new NewAuthorPost($post));
+
             return redirect()->route('admin.post.index');
         } else {
             Toastr::error('Error saving post', 'Failed');
