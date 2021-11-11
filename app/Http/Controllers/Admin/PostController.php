@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Subscriber;
 use App\Models\Tag;
 use App\Notifications\AuthorPostApproved;
+use App\Notifications\NewPostNotify;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -77,12 +80,20 @@ class PostController extends Controller
         $post->image = $imageName;
         $post->body = $request->body;
         $post->user_id = Auth::id();
+        $post->is_approved = true;
         $post->status = $request->status ?? false;
 
         if ($post->save()) {
             $post->categories()->attach($request->categories);
             $post->tags()->attach($request->tags);
             Toastr::success('Save post successfully', 'Succeed');
+
+            $subscribers = Subscriber::all();
+            foreach ($subscribers as $subscriber) {
+                Notification::route('mail', $subscriber->email)
+                    ->notify(new NewPostNotify($post));
+            }
+
             return redirect()->route('admin.post.index');
         } else {
             Toastr::error('Error saving post', 'Failed');
@@ -209,6 +220,12 @@ class PostController extends Controller
             $post->save();
             Toastr::success('Post approved successfully', 'Succeed');
             $post->user->notify(new AuthorPostApproved($post));
+
+            $subscribers = Subscriber::all();
+            foreach ($subscribers as $subscriber) {
+                Notification::route('mail', $subscriber->email)
+                    ->notify(new NewPostNotify($post));
+            }
         }
 
         return redirect()->back();
