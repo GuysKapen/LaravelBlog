@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Notifications\AuthorPostApproved;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -207,6 +208,7 @@ class PostController extends Controller
             $post->is_approved = true;
             $post->save();
             Toastr::success('Post approved successfully', 'Succeed');
+            $post->user->notify(new AuthorPostApproved($post));
         }
 
         return redirect()->back();
