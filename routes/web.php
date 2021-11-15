@@ -53,6 +53,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
     Route::put("profile-update", "SettingsController@updateProfile")->name("profile.update");
     Route::put("password-update", "SettingsController@updatePassword")->name("password.update");
 
+    Route::get("/favorite", "FavoriteController@index")->name("favorite.index");
+
 });
 
 Route::group(['as' => 'author.', 'prefix' => 'author', 'namespace' => 'App\Http\Controllers\Author', 'middleware' => ['auth', 'author']], function () {
@@ -63,4 +65,5 @@ Route::group(['as' => 'author.', 'prefix' => 'author', 'namespace' => 'App\Http\
     Route::put("profile-update", "SettingsController@updateProfile")->name("profile.update");
     Route::put("password-update", "SettingsController@updatePassword")->name("password.update");
 
+    Route::get("/favorite", "FavoriteController@index")->name("favorite.index");
 });
