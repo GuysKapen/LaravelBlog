@@ -61,7 +61,7 @@ class CategoryController extends Controller
                 Storage::disk('public')->makeDirectory('category');
             }
 
-            Storage::disk('public')->put('category/' . $imageName, $image);
+            Storage::disk('public')->put('category/' . $imageName, file_get_contents($image));
         } else {
             $imageName = 'default.png';
         }
@@ -133,7 +133,7 @@ class CategoryController extends Controller
                 Storage::disk('public')->makeDirectory('category');
             }
 
-            Storage::disk('public')->put('category/' . $imageName, $image);
+            Storage::disk('public')->put('category/' . $imageName, file_get_contents($image));
         } else {
             $imageName = 'default.png';
         }

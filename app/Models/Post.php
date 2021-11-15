@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed|boolean $is_approved
  * @property mixed|string $slug
  * @property mixed|integer $view_count
+ * @property integer $id
  * @method static Post find($id)
  * @method static where(string $string, false $false)
  */
@@ -36,5 +37,10 @@ class Post extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function favorite_to_users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

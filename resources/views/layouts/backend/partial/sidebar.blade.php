@@ -96,12 +96,12 @@
                 </li>
                 <li class="header">System</li>
 
-                {{--                <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">--}}
-                {{--                    <a href="{{ route('admin.settings') }}">--}}
-                {{--                        <i class="material-icons">settings</i>--}}
-                {{--                        <span>Settings</span>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
+                <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">
+                    <a href="{{ route('admin.settings') }}">
+                        <i class="material-icons">settings</i>
+                        <span>Settings</span>
+                    </a>
+                </li>
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
@@ -142,17 +142,17 @@
                 {{--                    </a>--}}
                 {{--                </li>--}}
 
-                {{--                <li class="header">System</li>--}}
-                {{--                <li class="{{ Request::is('author/settings') ? 'active' : '' }}">--}}
-                {{--                    <a href="{{ route('author.settings') }}">--}}
-                {{--                        <i class="material-icons">settings</i>--}}
-                {{--                        <span>Settings</span>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
+                <li class="header">System</li>
+                <li class="{{ Request::is('author/settings') ? 'active' : '' }}">
+                    <a href="{{ route('author.settings') }}">
+                        <i class="material-icons">settings</i>
+                        <span>Settings</span>
+                    </a>
+                </li>
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                       document.getElementById('logout-form').submit();">
                         <i class="material-icons">input</i>
                         <span>Logout</span>
                     </a>

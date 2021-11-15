@@ -10,6 +10,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static User find(int|string|null $id)
+ * @property string password
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -57,5 +61,9 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role->id === 1;
+    }
+
+    public function favorite_posts() {
+        return $this->belongsToMany(Post::class)->withTimestamps();
     }
 }
