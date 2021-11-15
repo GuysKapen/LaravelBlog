@@ -41901,6 +41901,12 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.blog-image img {
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

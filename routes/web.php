@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,13 +26,15 @@ Route::post("/subscriber", [SubscriberController::class, 'store'])->name('subscr
 
 Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('category.posts');
 
+Route::get("/post/{slug}", [PostController::class, "details"])->name("post.details");
+
 Route::get('/author/profile', function () {
 
 })->name('author.profile');
 
-Route::get('/post/details', function () {
+Route::get("/post/{tag}", function () {
 
-})->name('post.details');
+})->name("tag.posts");
 
 Route::group(["middleware" => ["auth"]], function () {
     Route::post("/favorite/{post}/add", [FavoriteController::class, 'add'])->name("post.favorite");
