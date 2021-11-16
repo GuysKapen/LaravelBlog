@@ -122,7 +122,7 @@
 
             </div><!-- row -->
 
-            <a class="load-more-btn" href="{{ route('post.index') }}"><b>LOAD MORE</b></a>
+            {{$posts->links()}}
 
         </div><!-- container -->
     </section><!-- section -->

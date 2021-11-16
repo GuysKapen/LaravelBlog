@@ -28,6 +28,8 @@ Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('cate
 
 Route::get("/post/{slug}", [PostController::class, "details"])->name("post.details");
 
+Route::get("/posts", [PostController::class, "index"])->name("post.index");
+
 Route::get('/author/profile', function () {
 
 })->name('author.profile');
