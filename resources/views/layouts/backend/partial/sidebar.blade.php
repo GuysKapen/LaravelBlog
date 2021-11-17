@@ -76,12 +76,12 @@
                         <span>Favorite Posts</span>
                     </a>
                 </li>
-                {{--                <li class="{{ Request::is('admin/comments') ? 'active' : '' }}">--}}
-                {{--                    <a href="{{ route('admin.comment.index') }}">--}}
-                {{--                        <i class="material-icons">comment</i>--}}
-                {{--                        <span>Comments</span>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
+                <li class="{{ Request::is('admin/comments') ? 'active' : '' }}">
+                    <a href="{{ route('admin.comment.index') }}">
+                        <i class="material-icons">comment</i>
+                        <span>Comments</span>
+                    </a>
+                </li>
                 {{--                <li class="{{ Request::is('admin/authors') ? 'active' : '' }}">--}}
                 {{--                    <a href="{{ route('admin.author.index') }}">--}}
                 {{--                        <i class="material-icons">account_circle</i>--}}
@@ -135,12 +135,12 @@
                     </a>
                 </li>
 
-                {{--                <li class="{{ Request::is('author/comments') ? 'active' : '' }}">--}}
-                {{--                    <a href="{{ route('author.comment.index') }}">--}}
-                {{--                        <i class="material-icons">comment</i>--}}
-                {{--                        <span>Comments</span>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
+                <li class="{{ Request::is('author/comments') ? 'active' : '' }}">
+                    <a href="{{ route('author.comment.index') }}">
+                        <i class="material-icons">comment</i>
+                        <span>Comments</span>
+                    </a>
+                </li>
 
                 <li class="header">System</li>
                 <li class="{{ Request::is('author/settings') ? 'active' : '' }}">

@@ -62,6 +62,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
 
     Route::get("/favorite", "FavoriteController@index")->name("favorite.index");
 
+    Route::get("/comments", "CommentController@index")->name('comment.index');
+    Route::delete("/comments", "CommentController@destroy")->name('comment.destroy');
+
 });
 
 Route::group(['as' => 'author.', 'prefix' => 'author', 'namespace' => 'App\Http\Controllers\Author', 'middleware' => ['auth', 'author']], function () {
@@ -73,4 +76,7 @@ Route::group(['as' => 'author.', 'prefix' => 'author', 'namespace' => 'App\Http\
     Route::put("password-update", "SettingsController@updatePassword")->name("password.update");
 
     Route::get("/favorite", "FavoriteController@index")->name("favorite.index");
+
+    Route::get("/comments", "CommentController@index")->name('comment.index');
+    Route::delete("/comments", "CommentController@destroy")->name('comment.destroy');
 });
