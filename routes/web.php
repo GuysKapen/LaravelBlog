@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubscriberController;
@@ -40,6 +41,7 @@ Route::get("/post/{tag}", function () {
 
 Route::group(["middleware" => ["auth"]], function () {
     Route::post("/favorite/{post}/add", [FavoriteController::class, 'add'])->name("post.favorite");
+    Route::post("/comment/{post}", [CommentController::class, 'store'])->name('comment.store');
 });
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'admin']], function () {
