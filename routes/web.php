@@ -25,7 +25,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::post("/subscriber", [SubscriberController::class, 'store'])->name('subscriber.store');
 
-Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('category.posts');
+Route::get('/category/{slug}', [PostController::class, 'postsByCategory'])->name('category.posts');
 
 Route::get("/post/{slug}", [PostController::class, "details"])->name("post.details");
 
@@ -35,9 +35,7 @@ Route::get('/author/profile', function () {
 
 })->name('author.profile');
 
-Route::get("/post/{tag}", function () {
-
-})->name("tag.posts");
+Route::get("/tag/{slug}", [PostController::class, 'postsByTag'])->name("tag.posts");
 
 Route::group(["middleware" => ["auth"]], function () {
     Route::post("/favorite/{post}/add", [FavoriteController::class, 'add'])->name("post.favorite");
