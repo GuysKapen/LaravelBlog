@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Traits\Date;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,15 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @method static User find(int|string|null $id)
  * @property string password
+ * @property mixed $id
+ * @property string $username
+ * @property string $name
+ * @property string $email
+ * @property string $image
+ * @property integer $role_id
+ * @property string $about
+ * @property string $remember_token
+ * @property Date $email_verified_at
  */
 class User extends Authenticatable
 {
@@ -63,7 +73,13 @@ class User extends Authenticatable
         return $this->role->id === 1;
     }
 
-    public function favorite_posts() {
+    public function favorite_posts()
+    {
         return $this->belongsToMany(Post::class)->withTimestamps();
+    }
+
+    public function scopeAuthors($query)
+    {
+        return $query->where('role_id', 2);
     }
 }

@@ -49,4 +49,14 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function scopePublished($query)
+    {
+        return $query->where('published', 1);
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', 1);
+    }
 }

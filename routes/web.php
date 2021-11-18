@@ -37,6 +37,8 @@ Route::get('/author/profile', function () {
 
 Route::get("/tag/{slug}", [PostController::class, 'postsByTag'])->name("tag.posts");
 
+Route::get("/search", [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
+
 Route::group(["middleware" => ["auth"]], function () {
     Route::post("/favorite/{post}/add", [FavoriteController::class, 'add'])->name("post.favorite");
     Route::post("/comment/{post}", [CommentController::class, 'store'])->name('comment.store');
@@ -63,6 +65,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
     Route::get("/comments", "CommentController@index")->name('comment.index');
     Route::delete("/comments", "CommentController@destroy")->name('comment.destroy');
 
+    Route::get('/authors', "AuthorController@index")->name('author.index');
+    Route::delete('/authors/{user}', "AuthorController@destroy")->name('author.destroy');
 });
 
 Route::group(['as' => 'author.', 'prefix' => 'author', 'namespace' => 'App\Http\Controllers\Author', 'middleware' => ['auth', 'author']], function () {
