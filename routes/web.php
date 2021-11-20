@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,7 @@ Route::get('/author/profile', function () {
 
 Route::get("/tag/{slug}", [PostController::class, 'postsByTag'])->name("tag.posts");
 
-Route::get("/search", [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
+Route::get("/search", [SearchController::class, 'search'])->name('search');
 
 Route::group(["middleware" => ["auth"]], function () {
     Route::post("/favorite/{post}/add", [FavoriteController::class, 'add'])->name("post.favorite");
@@ -67,6 +68,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
 
     Route::get('/authors', "AuthorController@index")->name('author.index');
     Route::delete('/authors/{user}', "AuthorController@destroy")->name('author.destroy');
+
+    Route::get("/profile/{email}", [AuthorController::class, 'profile'])->name('author.profile');
 });
 
 Route::group(['as' => 'author.', 'prefix' => 'author', 'namespace' => 'App\Http\Controllers\Author', 'middleware' => ['auth', 'author']], function () {
